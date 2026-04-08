@@ -20,13 +20,13 @@ foreach (device ${HIMBAECHEL_EXAMPLE_DEVICES})
 
     add_bba_produce_command(
         TARGET  nextpnr-himbaechel-example-bba
-        COMMAND ${Python3_EXECUTABLE}
-            ${CMAKE_CURRENT_SOURCE_DIR}/example_arch_gen.py
+        COMMAND ${RUBY_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/example_arch_gen.rb
             ${CMAKE_CURRENT_BINARY_DIR}/chipdb-${device}.bba.new
         OUTPUT
             ${CMAKE_CURRENT_BINARY_DIR}/chipdb-${device}.bba
         INPUTS
-            ${CMAKE_CURRENT_SOURCE_DIR}/example_arch_gen.py
+            ${CMAKE_CURRENT_SOURCE_DIR}/example_arch_gen.rb
             ${CMAKE_CURRENT_SOURCE_DIR}/constids.inc
             ${CMAKE_CURRENT_SOURCE_DIR}/gfxids.inc
     )

@@ -7,8 +7,8 @@ This document aims to provide an overview into the philosophy behind nextpnr's c
  - [FAQ](faq.md) - overview of terminology
  - [Arch API](archapi.md) - reference for the using and implementing the Architecture API
  - [Netlist Structure](netlist.md) - reference for the netlist data structures
- - [Python API](python.md) - Python API overview for netlist access, constraints, etc
- - [Generic Architecture](generic.md) - using the Python API to create architectures
+ - [Ruby API](ruby.md) - Ruby API overview for netlist access, constraints, etc
+ - [Generic Architecture](generic.md) - using the Ruby API to create architectures
 
 ## nextpnr Architectures
 

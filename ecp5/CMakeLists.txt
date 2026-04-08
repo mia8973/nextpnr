@@ -7,8 +7,8 @@ set(SOURCES
     archdefs.h
     arch.h
     arch_place.cc
-    arch_pybindings.cc
-    arch_pybindings.h
+    arch_rubybindings.cc
+    arch_rubybindings.h
     baseconfigs.cc
     bitstream.cc
     bitstream.h
@@ -46,8 +46,8 @@ foreach (device ${ECP5_DEVICES})
 
     add_bba_produce_command(
         TARGET  nextpnr-${family}-bba
-        COMMAND ${Python3_EXECUTABLE}
-            ${CMAKE_CURRENT_SOURCE_DIR}/trellis_import.py
+        COMMAND ${RUBY_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/trellis_import.rb
             -L ${TRELLIS_LIBDIR}
             -L ${TRELLIS_DATADIR}/util/common
             -L ${TRELLIS_DATADIR}/timing/util
@@ -58,7 +58,7 @@ foreach (device ${ECP5_DEVICES})
         OUTPUT
             ${CMAKE_CURRENT_BINARY_DIR}/chipdb-${device}.bba
         INPUTS
-            ${CMAKE_CURRENT_SOURCE_DIR}/trellis_import.py
+            ${CMAKE_CURRENT_SOURCE_DIR}/trellis_import.rb
             ${CMAKE_CURRENT_SOURCE_DIR}/constids.inc
             ${CMAKE_CURRENT_SOURCE_DIR}/gfx.h
     )

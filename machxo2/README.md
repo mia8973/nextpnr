@@ -39,9 +39,8 @@ The following commands are known to work on a near-fresh Linux Mint system
 ```
 sudo apt install cmake clang-format libboost-all-dev build-essential
 qt6-base-dev libeigen3-dev build-essential clang bison flex libreadline-dev
-gawk tcl-dev libffi-dev git graphviz xdot pkg-config python3
-libboost-system-dev libboost-python-dev libboost-filesystem-dev zlib1g-dev
-python3-setuptools python3-serial
+gawk tcl-dev libffi-dev git graphviz xdot pkg-config ruby
+libboost-system-dev libboost-filesystem-dev zlib1g-dev
 ```
 
 ### Installation
@@ -73,7 +72,7 @@ cd ../
 
 git clone git@github.com:tinyfpga/TinyFPGA-A-Programmer.git
 cd TinyFPGA-A-Programmer/
-sudo python setup.py install
+sudo ruby setup.rb install
 
 cd ../
 
@@ -81,7 +80,7 @@ git clone git@github.com:cr1901/nextpnr.git
 cd nextpnr
 git checkout machxo2
 git submodule update --init --recursive
-cmake . -DARCH=machxo2 -DBUILD_GUI=OFF  -DTRELLIS_INSTALL_PREFIX=/usr -DBUILD_PYTHON=OFF 
+cmake . -DARCH=machxo2 -DBUILD_GUI=OFF  -DTRELLIS_INSTALL_PREFIX=/usr -DBUILD_RUBY=OFF 
 make
 ```
 

@@ -4,8 +4,8 @@ set(HIMBAECHEL_SOURCES
     arch.cc
     archdefs.h
     arch.h
-    arch_pybindings.cc
-    arch_pybindings.h
+    arch_rubybindings.cc
+    arch_rubybindings.h
     chipdb.h
     himbaechel_api.cc
     himbaechel_api.h

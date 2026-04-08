@@ -34,7 +34,7 @@
 #include "jsonwrite.h"
 #include "log.h"
 #include "mainwindow.h"
-#include "pythontab.h"
+#include "rubytab.h"
 #include "version.h"
 
 static void initBasenameResource() { Q_INIT_RESOURCE(base); }
@@ -74,7 +74,7 @@ BaseMainWindow::BaseMainWindow(std::unique_ptr<Context> context, CommandHandler 
 
     tabWidget = new QTabWidget();
 
-    console = new PythonTab();
+    console = new RubyTab();
     tabWidget->addTab(console, "Console");
 
     centralTabWidget = new QTabWidget();
@@ -99,7 +99,7 @@ BaseMainWindow::BaseMainWindow(std::unique_ptr<Context> context, CommandHandler 
 
     // Events for context change
     connect(this, &BaseMainWindow::contextChanged, task, &TaskManager::contextChanged);
-    connect(this, &BaseMainWindow::contextChanged, console, &PythonTab::newContext);
+    connect(this, &BaseMainWindow::contextChanged, console, &RubyTab::newContext);
     connect(this, &BaseMainWindow::contextChanged, fpgaView, &FPGAViewWidget::newContext);
     connect(this, &BaseMainWindow::contextChanged, designview, &DesignWidget::newContext);
 
@@ -189,11 +189,11 @@ void BaseMainWindow::createMenusAndBars()
     actionRoute->setEnabled(false);
     connect(actionRoute, &QAction::triggered, task, &TaskManager::route);
 
-    actionExecutePy = new QAction("Execute Python", this);
-    actionExecutePy->setIcon(QIcon(":/icons/resources/py.png"));
-    actionExecutePy->setStatusTip("Execute Python script");
-    actionExecutePy->setEnabled(true);
-    connect(actionExecutePy, &QAction::triggered, this, &BaseMainWindow::execute_python);
+    actionExecuteRb = new QAction("Execute Ruby", this);
+    actionExecuteRb->setIcon(QIcon(":/icons/resources/py.png"));
+    actionExecuteRb->setStatusTip("Execute Ruby script");
+    actionExecuteRb->setEnabled(true);
+    connect(actionExecuteRb, &QAction::triggered, this, &BaseMainWindow::execute_ruby);
 
     // Worker control toolbar actions
     actionPlay = new QAction("Play", this);
@@ -303,7 +303,7 @@ void BaseMainWindow::createMenusAndBars()
     menuDesign->addAction(actionPlace);
     menuDesign->addAction(actionRoute);
     menuDesign->addSeparator();
-    menuDesign->addAction(actionExecutePy);
+    menuDesign->addAction(actionExecuteRb);
 
     // Add Help menu actions
     menuHelp->addAction(actionAbout);
@@ -318,7 +318,7 @@ void BaseMainWindow::createMenusAndBars()
     mainActionBar->addAction(actionPack);
     mainActionBar->addAction(actionPlace);
     mainActionBar->addAction(actionRoute);
-    mainActionBar->addAction(actionExecutePy);
+    mainActionBar->addAction(actionExecuteRb);
 
     // Add worker control toolbar
     QToolBar *workerControlToolBar = new QToolBar("Worker");
@@ -513,7 +513,7 @@ void BaseMainWindow::disableActions()
     actionPlace->setEnabled(false);
     actionRoute->setEnabled(false);
 
-    actionExecutePy->setEnabled(true);
+    actionExecuteRb->setEnabled(true);
 
     actionPlay->setEnabled(false);
     actionPause->setEnabled(false);
@@ -534,11 +534,11 @@ void BaseMainWindow::updateActions()
     onUpdateActions();
 }
 
-void BaseMainWindow::execute_python()
+void BaseMainWindow::execute_ruby()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, QString("Execute Python"), QString(), QString("*.py"));
+    QString fileName = QFileDialog::getOpenFileName(this, QString("Execute Ruby"), QString(), QString("*.rb"));
     if (!fileName.isEmpty()) {
-        console->execute_python(fileName.toStdString());
+        console->execute_ruby(fileName.toStdString());
     }
 }
 

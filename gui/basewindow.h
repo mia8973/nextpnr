@@ -37,7 +37,7 @@ Q_DECLARE_METATYPE(NEXTPNR_NAMESPACE_PREFIX DecalXY)
 
 NEXTPNR_NAMESPACE_BEGIN
 
-class PythonTab;
+class RubyTab;
 class DesignWidget;
 class FPGAViewWidget;
 
@@ -71,7 +71,7 @@ class BaseMainWindow : public QMainWindow
     void save_json();
     void place();
 
-    void execute_python();
+    void execute_ruby();
 
     void pack_finished(bool status);
     void place_finished(bool status);
@@ -102,7 +102,7 @@ class BaseMainWindow : public QMainWindow
     // main widgets
     QTabWidget *tabWidget;
     QTabWidget *centralTabWidget;
-    PythonTab *console;
+    RubyTab *console;
     DesignWidget *designview;
     FPGAViewWidget *fpgaView;
 
@@ -121,7 +121,7 @@ class BaseMainWindow : public QMainWindow
     QAction *actionPlace;
     QAction *actionRoute;
 
-    QAction *actionExecutePy;
+    QAction *actionExecuteRb;
 
     QAction *actionPlay;
     QAction *actionPause;

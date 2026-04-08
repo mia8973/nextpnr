@@ -29,7 +29,7 @@
 
 NEXTPNR_NAMESPACE_BEGIN
 
-/**** Everything in this section must be kept in sync with chipdb.py ****/
+/**** Everything in this section must be kept in sync with chipdb.rb ****/
 
 NPNR_PACKED_STRUCT(struct BelWirePOD {
     int32_t port;

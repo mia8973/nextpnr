@@ -37,8 +37,8 @@ if (HIMBAECHEL_XILINX_DEVICES STREQUAL "all")
 endif()
 message(STATUS "Enabled Himbaechel-Xilinx devices: ${HIMBAECHEL_XILINX_DEVICES}")
 
-if (NOT XilinxChipdb_Python3_EXECUTABLE)
-    find_program(XilinxChipdb_Python3_EXECUTABLE NAMES pypy3 python3)
+if (NOT XilinxChipdb_RUBY_EXECUTABLE)
+    find_program(XilinxChipdb_RUBY_EXECUTABLE NAMES ruby)
 endif()
 
 foreach (device ${HIMBAECHEL_XILINX_DEVICES})
@@ -56,15 +56,15 @@ foreach (device ${HIMBAECHEL_XILINX_DEVICES})
     endif()
     add_bba_produce_command(
         TARGET  nextpnr-himbaechel-xilinx-bba
-        COMMAND ${XilinxChipdb_Python3_EXECUTABLE}
-            ${CMAKE_CURRENT_SOURCE_DIR}/gen/xilinx_gen.py
+        COMMAND ${XilinxChipdb_RUBY_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/gen/xilinx_gen.rb
             --xray ${HIMBAECHEL_PRJXRAY_DB}/${XRAY_SUBDIR}
             --device ${device}
             --bba ${CMAKE_CURRENT_BINARY_DIR}/chipdb-${device}.bba.new
         OUTPUT
             ${CMAKE_CURRENT_BINARY_DIR}/chipdb-${device}.bba
         INPUTS
-            ${CMAKE_CURRENT_SOURCE_DIR}/gen/xilinx_gen.py
+            ${CMAKE_CURRENT_SOURCE_DIR}/gen/xilinx_gen.rb
             ${CMAKE_CURRENT_SOURCE_DIR}/constids.inc
     )
 

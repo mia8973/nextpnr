@@ -2,8 +2,8 @@ set(SOURCES
     arch.cc
     archdefs.h
     arch.h
-    arch_pybindings.cc
-    arch_pybindings.h
+    arch_rubybindings.cc
+    arch_rubybindings.h
     cells.cc
     cells.h
     pack.cc

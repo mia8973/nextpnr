@@ -1,8 +1,8 @@
 # Viaduct - a series of small arches
 
-Viaduct is a C++-based successor to the Python generic API that gets most of the benefits of a full-custom nextpnr architecture, with the simplicity of a harness to build from and a predefined flat set of data structures for the placement and routing resources.
+Viaduct is a C++-based successor to the Ruby generic API that gets most of the benefits of a full-custom nextpnr architecture, with the simplicity of a harness to build from and a predefined flat set of data structures for the placement and routing resources.
 
-Like the Python generic API, the routing graph can be built programmatically, or loaded from an external data source at startup. However, the Viaduct framework provides considerably improved startup times by relying less on strings and eliminating the C++/Python boundary; and also enables more complex architectures to be modeled with arbitrary place-and-route time constraints implemented as code, in the spirit of nextpnr.
+Like the Ruby generic API, the routing graph can be built programmatically, or loaded from an external data source at startup. However, the Viaduct framework provides considerably improved startup times by relying less on strings and eliminating the C++/Ruby boundary; and also enables more complex architectures to be modeled with arbitrary place-and-route time constraints implemented as code, in the spirit of nextpnr.
 
 A Viaduct implementation is called a 'uarch' (microarch), because it's smaller than a full architecture.
 

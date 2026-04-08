@@ -7,8 +7,8 @@ set(SOURCES
     archdefs.h
     arch.h
     arch_place.cc
-    arch_pybindings.cc
-    arch_pybindings.h
+    arch_rubybindings.cc
+    arch_rubybindings.h
     bitstream.cc
     bitstream.h
     cells.cc
@@ -67,8 +67,8 @@ foreach (device ${ICE40_DEVICES})
 
     add_bba_produce_command(
         TARGET  nextpnr-${family}-bba
-        COMMAND ${Python3_EXECUTABLE}
-            ${CMAKE_CURRENT_SOURCE_DIR}/chipdb.py
+        COMMAND ${RUBY_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/chipdb.rb
             -p ${CMAKE_CURRENT_SOURCE_DIR}/constids.inc
             -g ${CMAKE_CURRENT_SOURCE_DIR}/gfx.h
             ${timing_opts}
@@ -77,7 +77,7 @@ foreach (device ${ICE40_DEVICES})
         OUTPUT
             ${CMAKE_CURRENT_BINARY_DIR}/chipdb-${device}.bba
         INPUTS
-            ${CMAKE_CURRENT_SOURCE_DIR}/chipdb.py
+            ${CMAKE_CURRENT_SOURCE_DIR}/chipdb.rb
             ${CMAKE_CURRENT_SOURCE_DIR}/constids.inc
             ${CMAKE_CURRENT_SOURCE_DIR}/gfx.h
     )

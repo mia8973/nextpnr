@@ -7,8 +7,8 @@ set(SOURCES
     archdefs.h
     arch.h
     arch_place.cc
-    arch_pybindings.cc
-    arch_pybindings.h
+    arch_rubybindings.cc
+    arch_rubybindings.h
     bba_version.inc
     constids.inc
     fasm.cc

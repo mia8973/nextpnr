@@ -3,8 +3,8 @@ set(SOURCES
     archdefs.cc
     archdefs.h
     arch.h
-    arch_pybindings.cc
-    arch_pybindings.h
+    arch_rubybindings.cc
+    arch_rubybindings.h
     bitstream.cc
     constids.inc
     delay.cc

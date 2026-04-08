@@ -14,4 +14,4 @@ Constrains named port `port` to package pin `pin`. `-nowarn` disables the warnin
 
 Adds a clock constraint to a named net (any alias for the net can be used). `frequency` is in MHz.
 
-_Note that this is a non-standard extension, not supported by the vendor toolchain. It allows specifying clock constraints without needing the Python API._
+_Note that this is a non-standard extension, not supported by the vendor toolchain. It allows specifying clock constraints without needing the Ruby API._

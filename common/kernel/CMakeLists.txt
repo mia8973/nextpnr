@@ -5,7 +5,7 @@ target_include_directories(nextpnr_kernel INTERFACE .)
 target_sources(nextpnr_kernel PUBLIC
     arch_api.h
     archcheck.cc
-    arch_pybindings_shared.h
+    arch_rubybindings_shared.h
     array2d.h
     base_arch.h
     base_clusterinfo.h
@@ -41,10 +41,10 @@ target_sources(nextpnr_kernel PUBLIC
     nextpnr_types.h
     property.cc
     property.h
-    pybindings.cc
-    pybindings.h
-    pycontainers.h
-    pywrappers.h
+    rubybindings.cc
+    rubybindings.h
+    rubycontainers.h
+    rubywrappers.h
     relptr.h
     report.cc
     scope_lock.h
@@ -68,12 +68,12 @@ target_link_libraries(nextpnr_kernel INTERFACE
     json11
 )
 
-if (BUILD_PYTHON)
+if (BUILD_RUBY)
     target_include_directories(nextpnr_kernel INTERFACE
-        ${Python3_INCLUDE_DIRS}
+        ${MRUBY_INCLUDE_DIRS}
     )
 
     target_link_libraries(nextpnr_kernel INTERFACE
-        pybind11::headers
+        ${MRUBY_LIBRARIES}
     )
 endif()

@@ -5,7 +5,7 @@
 However, building the routing graph in-memory at every startup and storing it flat doesn't scale at all well with larger FPGAs (say, 100k LEs or bigger).
 So, we take advantage of nextpnr's support for complex, non-flat routing graph structures and define a deduplication approach that's designed to work better even for very large fabrics - the database size is unlikely to exceed about 100MB even for million-LUT scale devices, compared to multiple gigabytes for a flat database.
 
-Python scripting is defined that allows the user to describe a semi-flattened routing graph and build the deduplicated database binary _at compile time_. Pips - routing switches - are described per tile type rather than flat; however, the connectivity between tiles ("nodes") are described flat and automatically deduplicated during database build.
+Ruby scripting is defined that allows the user to describe a semi-flattened routing graph and build the deduplicated database binary _at compile time_. Pips - routing switches - are described per tile type rather than flat; however, the connectivity between tiles ("nodes") are described flat and automatically deduplicated during database build.
 
 ## Getting Started
 
@@ -13,7 +13,7 @@ Most of what's written in the [viaduct docs](./viaduct.md) also applies to boots
 
 Additionally Himbächel API defines `getUArchOptions` enabling specifying additional command line parameters for given architecture only.
 
-However, the key difference is that you will need to generate a "binary blob" chip database. `himbaechel_dbgen/bba.py` provides a framework for this. The typical steps for using this API would be as follows:
+However, the key difference is that you will need to generate a "binary blob" chip database. `himbaechel_dbgen/bba.rb` provides a framework for this. The typical steps for using this API would be as follows:
  - Create a `Chip` instance
  - For each unique "tile type" in the design (e.g. logic, BRAM, IO - in some cases multiple variants of these may be multiple tile types):
      - Create it using `Chip.create_tile_type`
@@ -25,4 +25,4 @@ However, the key difference is that you will need to generate a "binary blob" ch
  - Write out the `.bba` file using `Chip.write_bba`
  - Compile it into a binary that nextpnr can load using `./bba/bbasm --l my_chipdb.bba my_chipdb.bin`
 
-An example Python generator to copy from is located in `uarch/example/example_arch_gen.py`.
+An example Ruby generator to copy from is located in `uarch/example/example_arch_gen.rb`.

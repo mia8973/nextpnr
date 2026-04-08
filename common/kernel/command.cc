@@ -22,8 +22,8 @@
 #include "application.h"
 #include "mainwindow.h"
 #endif
-#ifndef NO_PYTHON
-#include "pybindings.h"
+#ifndef NO_RUBY
+#include "rubybindings.h"
 #endif
 
 #include <boost/algorithm/string.hpp>
@@ -328,16 +328,16 @@ po::options_description CommandHandler::getGeneralOptions()
     general.add_options()("gui", "start gui");
     general.add_options()("gui-no-aa", "disable anti aliasing (use together with --gui option)");
 #endif
-#ifndef NO_PYTHON
+#ifndef NO_RUBY
     general.add_options()("run", po::value<std::vector<std::string>>(),
-                          "python file to execute instead of default flow");
+                          "ruby file to execute instead of default flow");
     pos.add("run", -1);
-    general.add_options()("pre-pack", po::value<std::vector<std::string>>(), "python file to run before packing");
-    general.add_options()("pre-place", po::value<std::vector<std::string>>(), "python file to run before placement");
-    general.add_options()("pre-route", po::value<std::vector<std::string>>(), "python file to run before routing");
-    general.add_options()("post-route", po::value<std::vector<std::string>>(), "python file to run after routing");
+    general.add_options()("pre-pack", po::value<std::vector<std::string>>(), "ruby file to run before packing");
+    general.add_options()("pre-place", po::value<std::vector<std::string>>(), "ruby file to run before placement");
+    general.add_options()("pre-route", po::value<std::vector<std::string>>(), "ruby file to run before routing");
+    general.add_options()("post-route", po::value<std::vector<std::string>>(), "ruby file to run after routing");
     general.add_options()("on-failure", po::value<std::vector<std::string>>(),
-                          "python file to run in event of crash for design introspection");
+                          "ruby file to run in event of crash for design introspection");
 
 #endif
     general.add_options()("json", po::value<std::string>(), "JSON design file to ingest");
@@ -648,15 +648,15 @@ int CommandHandler::executeMain(std::unique_ptr<Context> ctx)
         customAfterLoad(ctx.get());
     }
 
-#ifndef NO_PYTHON
-    init_python(argv[0]);
-    python_export_global("ctx", *ctx);
+#ifndef NO_RUBY
+    init_ruby(argv[0]);
+    ruby_export_global("ctx", *ctx);
 
     if (vm.count("run")) {
 
         std::vector<std::string> files = vm["run"].as<std::vector<std::string>>();
         for (auto filename : files)
-            execute_python_file(filename.c_str());
+            execute_ruby_file(filename.c_str());
     } else
 #endif
             if (ctx->design_loaded) {
@@ -724,8 +724,8 @@ int CommandHandler::executeMain(std::unique_ptr<Context> ctx)
         ctx->writeJsonReport(f);
     }
 
-#ifndef NO_PYTHON
-    deinit_python();
+#ifndef NO_RUBY
+    deinit_ruby();
 #endif
 
     return had_nonfatal_error ? 1 : 0;
@@ -788,11 +788,11 @@ void CommandHandler::clear() { vm.clear(); }
 
 void CommandHandler::run_script_hook(const std::string &name)
 {
-#ifndef NO_PYTHON
+#ifndef NO_RUBY
     if (vm.count(name)) {
         std::vector<std::string> files = vm[name].as<std::vector<std::string>>();
         for (auto filename : files)
-            execute_python_file(filename.c_str());
+            execute_ruby_file(filename.c_str());
     }
 #endif
 }

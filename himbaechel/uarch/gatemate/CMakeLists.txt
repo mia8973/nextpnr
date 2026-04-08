@@ -57,15 +57,15 @@ foreach (device ${HIMBAECHEL_GATEMATE_DEVICES})
 
     add_bba_produce_command(
         TARGET  nextpnr-himbaechel-gatemate-bba
-        COMMAND ${Python3_EXECUTABLE}
-            ${CMAKE_CURRENT_SOURCE_DIR}/gen/arch_gen.py
+        COMMAND ${RUBY_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/gen/arch_gen.rb
             --lib ${HIMBAECHEL_PEPPERCORN_PATH}/gatemate
             --device ${device}
             --bba ${CMAKE_CURRENT_BINARY_DIR}/chipdb-${device}.bba.new
         OUTPUT
             ${CMAKE_CURRENT_BINARY_DIR}/chipdb-${device}.bba
         INPUTS
-            ${CMAKE_CURRENT_SOURCE_DIR}/gen/arch_gen.py
+            ${CMAKE_CURRENT_SOURCE_DIR}/gen/arch_gen.rb
             ${CMAKE_CURRENT_SOURCE_DIR}/constids.inc
             ${CMAKE_CURRENT_SOURCE_DIR}/gfxids.inc
     )

@@ -2,22 +2,22 @@
 
 Instead of implementing the full [C++ API](archapi.md), you can programmatically 
 build up a description of an FPGA using the generic architecture and the 
-Python API, or the [Viaduct C++ API](viaduct.md) (described further in its own
+Ruby API, or the [Viaduct C++ API](viaduct.md) (described further in its own
 document).
 
 The Viaduct API allows more complex constraints to be implemented and has shorter
-startup times than using the Python API.
+startup times than using the Ruby API.
 
 A basic packer is provided that supports LUTs, flipflops and IO buffer insertion.
-Packing could also be implemented using the Python API.
+Packing could also be implemented using the Ruby API.
 
 At present there is no support for cell timing in the generic architecture. This
 will be worked on in the future.
 
-## Python API
+## Ruby API
 
 All identifiers (`IdString`, `IdStringList`, `WireId`, `PipId`, and `BelId`) are
-automatically converted to and from a Python string, so no manual conversion is
+automatically converted to and from a Ruby string, so no manual conversion is
 required.
 
 `IdStringList`s will be most efficient if strings can be split according to a
@@ -26,7 +26,7 @@ in-memory. For example; instead of needing to store an entire pip name
 `X33/Y45/V4A_TO_A6` which scales badly for large numbers of pips; the strings
 `X33`, `Y45` and `V4A_TO_A6` are stored.
 
-Argument names are included in the Python bindings,
+Argument names are included in the Ruby bindings,
 so named arguments may be used.
 
 ### void addWire(IdStringList name, IdString type, int x, int y);
@@ -129,8 +129,8 @@ The generic packer in its current state is intended for experimentation and proo
 The following constraints are enforced by the generic architecture during placement.
 
  - `GENERIC_SLICE` bels may only have one clock signal per tile (xy location)
- - If the `PACK_GROUP` attribute is set to a non-zero value on cells, then only cells with the same `PACK_GROUP` attribute (or `PACK_GROUP` negative or unset) may share a tile. This could be set by the Python API or during synthesis.
+ - If the `PACK_GROUP` attribute is set to a non-zero value on cells, then only cells with the same `PACK_GROUP` attribute (or `PACK_GROUP` negative or unset) may share a tile. This could be set by the Ruby API or during synthesis.
 
 ## Implementation Example
 
-An artificial, procedural architecture is included in the [generic/examples](../generic/examples) folder. [simple.py](../generic/examples/simple.py) sets up the architecture, and [bitstream.py](../generic/examples/bitstream.py) saves the post-place-and-route design to a FASM format file (which could be used for bitstream generation). [simple.sh](../generic/examples/simple.sh) can be used to synthesise and place-and-route a simple blinky for this architecture.
+An artificial, procedural architecture is included in the [generic/examples](../generic/examples) folder. [simple.rb](../generic/examples/simple.rb) sets up the architecture, and [bitstream.rb](../generic/examples/bitstream.rb) saves the post-place-and-route design to a FASM format file (which could be used for bitstream generation). [simple.sh](../generic/examples/simple.sh) can be used to synthesise and place-and-route a simple blinky for this architecture.

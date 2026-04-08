@@ -34,9 +34,9 @@ the Bel you wish it to be placed at. For example:
 There are two ways to apply clock constraints in nextpnr. The `--freq {freq}` command line argument is used to
 apply a default frequency (in MHz) to all clocks without a more specific constraint.
 
-The Python API can apply clock constraints to specific named clocks. This is done by passing a Python file
+The Ruby API can apply clock constraints to specific named clocks. This is done by passing a Ruby file
 specifying these constraints to the `--pre-pack` command line argument. Inside the file, constraints are applied by
-calling the function `ctx.addClock` with the name of the clock and its frequency in MHz, for example:
+calling the function `$ctx.addClock` with the name of the clock and its frequency in MHz, for example:
 
     ctx.addClock("csi_rx_i.dphy_clk", 96)
     ctx.addClock("video_clk", 24)

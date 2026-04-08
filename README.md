@@ -37,9 +37,9 @@ of the selected architecture:
 
 - CMake 3.25 or later
 - Modern C++17 compiler (`clang-format` required for development)
-- Python 3.5 or later, including development libraries (`python3-dev` for Ubuntu)
-  - Python 3.9 or later is required for `nextpnr-himbaechel`
-  - on Windows make sure to install same version as supported by [vcpkg](https://github.com/Microsoft/vcpkg/blob/master/ports/python3/CONTROL)
+- Ruby (for build scripts) and mruby (for embedded scripting)
+  - System Ruby is used for chip database generation scripts
+  - mruby is used as the embedded scripting engine (found via pkg-config or bundled)
 - Boost libraries (`libboost-dev libboost-filesystem-dev libboost-thread-dev libboost-program-options-dev libboost-iostreams-dev libboost-dev` or `libboost-all-dev` for Ubuntu)
 - Eigen3 (`libeigen3-dev` for Ubuntu)
 - Yosys is required to synthesise the demo design
@@ -47,9 +47,9 @@ of the selected architecture:
   - For 32 bit builds: `vcpkg install boost-filesystem boost-program-options boost-thread eigen3`
   - For 64 bit builds: `vcpkg install boost-filesystem:x64-windows boost-program-options:x64-windows boost-thread:x64-windows eigen3:x64-windows`
   - For static builds, add `-static` to each of the package names.  For example, change `eigen3:x64-windows` to `eigen3:x64-windows-static`
-  - A copy of Python that matches the version in vcpkg (currently Python 3.6.4).  You can download the [Embeddable Zip File](https://www.python.org/downloads/release/python-364/) and extract it.  You may need to extract `python36.zip` within the embeddable zip file to a new directory called "Lib".
+  - Ruby must be available on the system PATH for build scripts.
 - For building on macOS, brew utility is needed.
-  - Install all needed packages `brew install cmake python boost eigen`
+  - Install all needed packages `brew install cmake ruby boost eigen`
 
 Getting started
 ---------------
@@ -74,7 +74,7 @@ sudo make install
 On Windows, you may specify paths explicitly:
 
 ```
-cmake . -B build -DARCH=ice40 -DICESTORM_INSTALL_PREFIX=C:/ProgramData/icestorm -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows -G "Visual Studio 15 2017 Win64" -DPython3_EXECUTABLE=C:/Python364/python.exe -DPython3_LIBRARY=C:/vcpkg/packages/python3_x64-windows/lib/python36.lib -DPython3_INCLUDE_DIR=C:/vcpkg/packages/python3_x64-windows/include/python3.6
+cmake . -B build -DARCH=ice40 -DICESTORM_INSTALL_PREFIX=C:/ProgramData/icestorm -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows -G "Visual Studio 15 2017 Win64"
 cmake --build build --config Release
 ```
 
@@ -97,7 +97,7 @@ Running nextpnr in GUI mode (see below for instructions on building nextpnr with
 nextpnr-ice40 --json blinky.json --pcf blinky.pcf --asc blinky.asc --gui
 ```
 
-(Use the toolbar buttons or the Python command console to perform actions
+(Use the toolbar buttons or the Ruby command console to perform actions
 such as pack, place, route, and write output files.)
 
 ### nextpnr-ecp5
@@ -252,11 +252,11 @@ This will create a `bba-export.cmake` file. Provide the path to this file when c
 Additional notes for building nextpnr
 -------------------------------------
 
-The following runs a debug build of the iCE40 architecture without GUI, without Python support, without the HeAP analytic placer and only HX1K support:
+The following runs a debug build of the iCE40 architecture without GUI, without Ruby support, without the HeAP analytic placer and only HX1K support:
 
 ```
 mkdir -p build && cd build
-cmake .. -DARCH=ice40 -DCMAKE_BUILD_TYPE=Debug -DBUILD_PYTHON=OFF -DICE40_DEVICES=1k
+cmake .. -DARCH=ice40 -DCMAKE_BUILD_TYPE=Debug -DBUILD_RUBY=OFF -DICE40_DEVICES=1k
 make -j$(nproc)
 ```
 
@@ -264,7 +264,7 @@ To make static build release for iCE40 architecture use the following:
 
 ```
 mkdir -p build && cd build
-cmake .. -DARCH=ice40 -DBUILD_PYTHON=OFF -DSTATIC_BUILD=ON
+cmake .. -DARCH=ice40 -DBUILD_RUBY=OFF -DSTATIC_BUILD=ON
 make -j$(nproc)
 ```
 
