@@ -30,7 +30,7 @@
 
 NEXTPNR_NAMESPACE_BEGIN
 
-/**** Everything in this section must be kept in sync with chipdb.py ****/
+/**** Everything in this section must be kept in sync with chipdb.rb ****/
 
 // FIXME: All "rel locs" are actually absolute, naming typo in facade_import.
 // Does not affect runtime functionality.
